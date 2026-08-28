@@ -1,6 +1,6 @@
 # OdontoAR
 
-![diente](img/diente.jpeg)
+![diente](img/dienteimg.jpeg)
 
 ## Ejemplos previos
 - Celular: https://e.webxr.run/?url=https%3A%2F%2F7epq7.zappar.io%2F5118301513931043946%2F
