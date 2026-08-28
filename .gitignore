@@ -1,0 +1,18 @@
+# Unity
+Proyecto Unity/[Ll]ibrary/
+Proyecto Unity/[Tt]emp/
+Proyecto Unity/[Oo]bj/
+Proyecto Unity/[Ll]ogs/
+Proyecto Unity/[Uu]ser[Ss]ettings/
+
+# IDE
+Proyecto Unity/[Bb]uild/
+Proyecto Unity/[Bb]uilds/
+Proyecto Unity/*.csproj
+Proyecto Unity/*.sln
+
+Info útil/Manual Unity Tutoriales.pdf
+
+# OS
+.DS_Store
+Thumbs.db
