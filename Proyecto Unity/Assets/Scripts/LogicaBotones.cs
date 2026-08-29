@@ -22,7 +22,7 @@ public class LogicaBotones : MonoBehaviour
     }
 
     public void AsistenteIA(){
-        CargarEscena("AsistenteIA");
+        Application.OpenURL("https://chatgpt.com/g/g-67c490a077f08191b9e64c5a058f691f-odontosmart-gpt");
     }
 
     public void Creditos(){
