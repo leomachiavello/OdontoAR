@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Resumen.unity
     guid: c7de588c83a8f95408ad93c865b8f46e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/AsistenteIA.unity
     guid: 30de1fa21c7bc2e49b9ce6a397fa1ff2
   - enabled: 1
