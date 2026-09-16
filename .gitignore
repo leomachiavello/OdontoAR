@@ -16,3 +16,7 @@ Info útil/Manual Unity Tutoriales.pdf
 # OS
 .DS_Store
 Thumbs.db
+
+# Secrets (API keys) - never commit these
+Proyecto Unity/Assets/StreamingAssets/api_config.json
+Proyecto Unity/Assets/StreamingAssets/api_config.json.meta

@@ -17,6 +17,7 @@ public class PanelFlotante : MonoBehaviour
     private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private RectTransform rectTransform;
     private bool colocado = false;
+    private bool esperandoSoltarToque = false;
 
     void Start()
     {
@@ -40,7 +41,17 @@ public class PanelFlotante : MonoBehaviour
 
     void Update()
     {
-        if (colocado || raycastManager == null)
+        if (colocado)
+        {
+            if (esperandoSoltarToque && spawnTrigger != null && !HayToqueActivo())
+            {
+                spawnTrigger.enabled = true;
+                esperandoSoltarToque = false;
+            }
+            return;
+        }
+
+        if (raycastManager == null)
             return;
 
         Vector2? posicionToque = LeerToque();
@@ -50,24 +61,16 @@ public class PanelFlotante : MonoBehaviour
         if (raycastManager.Raycast(posicionToque.Value, hits, TrackableType.PlaneWithinPolygon))
         {
             ARRaycastHit hit = hits[0];
-            bool esPared = false;
-
-            if (planeManager != null)
-            {
-                ARPlane plane = planeManager.GetPlane(hit.trackableId);
-                if (plane != null)
-                    esPared = plane.alignment == PlaneAlignment.Vertical;
-            }
+            ARPlane plane = planeManager != null ? planeManager.GetPlane(hit.trackableId) : null;
+            bool esPared = plane != null && plane.alignment == PlaneAlignment.Vertical;
 
             if (esPared)
-                ColocarEnPared(hit.pose);
+                ColocarEnPared(hit.pose, plane);
             else
                 ColocarFlotandoSobrePiso(hit.pose);
 
             colocado = true;
-
-            if (spawnTrigger != null)
-                spawnTrigger.enabled = true;
+            esperandoSoltarToque = true;
         }
     }
 
@@ -78,10 +81,11 @@ public class PanelFlotante : MonoBehaviour
         MirarACamara();
     }
 
-    void ColocarEnPared(Pose pose)
+    void ColocarEnPared(Pose pose, ARPlane plane)
     {
-        transform.position = pose.position + pose.up * distanciaPared;
-        transform.rotation = Quaternion.LookRotation(pose.up, Vector3.up);
+        Vector3 normal = plane != null ? plane.normal : pose.up;
+        transform.position = pose.position + normal * distanciaPared;
+        MirarACamara();
     }
 
     float ObtenerAlturaMundo()
@@ -101,6 +105,17 @@ public class PanelFlotante : MonoBehaviour
         direccion.y = 0f;
         if (direccion.sqrMagnitude > 0.0001f)
             transform.rotation = Quaternion.LookRotation(direccion);
+    }
+
+    bool HayToqueActivo()
+    {
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+            return true;
+
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+            return true;
+
+        return false;
     }
 
     Vector2? LeerToque()
