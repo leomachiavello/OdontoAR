@@ -13,11 +13,20 @@ public class PanelFlotante : MonoBehaviour
     [SerializeField] private Transform camara;
     [SerializeField] private float alturaFlotante = 0.2f;
     [SerializeField] private float distanciaPared = 0.05f;
+    [SerializeField] private Transform mascota;
+    [SerializeField] private string nombreMascota = "tano4";
+    [SerializeField] private Vector3 offsetMascota = new Vector3(0.85f, -0.32f, -0.1f);
+    [SerializeField] private Vector3 offsetMascotaRutas = new Vector3(0.66f, -0.32f, -0.1f);
+    [SerializeField] private float rotacionYMascota = -130f;
 
     private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private RectTransform rectTransform;
     private bool colocado = false;
     private bool esperandoSoltarToque = false;
+    private NavegacionPasos navegacion;
+    private NarradorMascota narrador;
+    private ConversacionMascota conversacion;
+    private Vector3 posicionObjetivoMascota;
 
     void Start()
     {
@@ -37,12 +46,47 @@ public class PanelFlotante : MonoBehaviour
 
         if (spawnTrigger != null)
             spawnTrigger.enabled = false;
+
+        if (mascota == null)
+        {
+            GameObject go = GameObject.Find(nombreMascota);
+            if (go != null)
+                mascota = go.transform;
+        }
+
+        if (mascota != null)
+            mascota.gameObject.SetActive(false);
+
+        navegacion = GetComponent<NavegacionPasos>();
+        if (navegacion != null)
+            navegacion.PasoCambiado += AlCambiarPaso;
+
+        if (mascota != null)
+        {
+            narrador = GetComponent<NarradorMascota>();
+            if (narrador == null)
+                narrador = gameObject.AddComponent<NarradorMascota>();
+            narrador.Configurar(mascota, navegacion);
+
+            conversacion = GetComponent<ConversacionMascota>();
+            if (conversacion == null)
+                conversacion = gameObject.AddComponent<ConversacionMascota>();
+            conversacion.Configurar(mascota, narrador, navegacion, spawnTrigger);
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (navegacion != null)
+            navegacion.PasoCambiado -= AlCambiarPaso;
     }
 
     void Update()
     {
         if (colocado)
         {
+            SeguirPosicionMascota();
+
             if (esperandoSoltarToque && spawnTrigger != null && !HayToqueActivo())
             {
                 spawnTrigger.enabled = true;
@@ -69,6 +113,14 @@ public class PanelFlotante : MonoBehaviour
             else
                 ColocarFlotandoSobrePiso(hit.pose);
 
+            ColocarMascota();
+
+            if (narrador != null)
+                narrador.IniciarNarracion();
+
+            if (conversacion != null)
+                conversacion.Activar();
+
             colocado = true;
             esperandoSoltarToque = true;
         }
@@ -86,6 +138,42 @@ public class PanelFlotante : MonoBehaviour
         Vector3 normal = plane != null ? plane.normal : pose.up;
         transform.position = pose.position + normal * distanciaPared;
         MirarACamara();
+    }
+
+    void ColocarMascota()
+    {
+        if (mascota == null)
+            return;
+
+        posicionObjetivoMascota = CalcularPosicionMascota();
+        mascota.position = posicionObjetivoMascota;
+        mascota.rotation = transform.rotation * Quaternion.Euler(0f, rotacionYMascota, 0f);
+        mascota.gameObject.SetActive(true);
+    }
+
+    Vector3 CalcularPosicionMascota()
+    {
+        bool enMenu = navegacion == null || navegacion.PasoActual == 0;
+        Vector3 offset = enMenu ? offsetMascota : offsetMascotaRutas;
+
+        return transform.position
+            + transform.right * offset.x
+            + transform.up * offset.y
+            + transform.forward * offset.z;
+    }
+
+    void AlCambiarPaso(int indice)
+    {
+        if (colocado && mascota != null)
+            posicionObjetivoMascota = CalcularPosicionMascota();
+    }
+
+    void SeguirPosicionMascota()
+    {
+        if (mascota == null || !mascota.gameObject.activeSelf)
+            return;
+
+        mascota.position = Vector3.Lerp(mascota.position, posicionObjetivoMascota, 1f - Mathf.Exp(-8f * Time.deltaTime));
     }
 
     float ObtenerAlturaMundo()
