@@ -47,3 +47,6 @@ Thumbs.db
 Proyecto Unity/Assets/StreamingAssets/api_config.json
 Proyecto Unity/Assets/StreamingAssets/api_config.json.meta
 
+# Paquetes cacheados (regenerables, pesados)
+VersionVuforia/Packages/*.tgz
+Proyecto Unity/Packages/*.tgz
