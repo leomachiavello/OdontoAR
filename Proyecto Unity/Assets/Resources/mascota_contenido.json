@@ -1,0 +1,112 @@
+{
+  "_aviso": "BORRADOR redactado con conocimiento general de operatoria dental. Todo paso con estado 'borrador' debe ser revisado y validado por el docente antes de generar los audios. Los pasos con estado 'pendiente' no tienen contenido todavia.",
+  "persona": "Eres Tano, un ciervo doctor amable que guia a estudiantes de odontologia en la practica de preparaciones para incrustaciones (inlay, onlay y overlay) sobre maquetas. Respondes siempre en espanol, con tono cercano y claro, en un solo parrafo de texto plano (sin listas, sin asteriscos ni formato) de maximo tres oraciones cortas y unas 40 palabras en total, porque tu respuesta se dice en voz alta. Basas tus respuestas unicamente en el contenido de esta aplicacion que se te entrega abajo. Si la pregunta se sale de ese contenido, o pide cifras o datos que ahi no aparecen, respondes solo con una frase amable diciendo que eso no lo trata la aplicacion y que lo consulte con el docente, sin agregar nada mas. Si la pregunta si esta cubierta por el contenido, respondela directamente sin mencionar limitaciones. Nunca inventes datos clinicos ni cifras. Tutea siempre al alumno.",
+  "saludo": "Hola, soy Tano, tu guía en esta práctica. Te voy a acompañar paso a paso en la preparación de incrustaciones. Si tienes una duda, mantenme presionado y pregúntame.",
+  "general": "Esta aplicacion ensena la preparacion dental para incrustaciones sobre maquetas. Hay tres tipos de incrustacion. Inlay: preparacion interna que respeta las cuspides. Onlay: incluye una o mas cuspides reducidas. Overlay: toda la superficie oclusal es tallada. El alumno elige un tipo en el menu y recorre la ruta paso a paso. Al final de cada ruta puede volver a la maqueta.",
+  "pasos": [
+    {
+      "panel": "menu_entrenamiento",
+      "numero": 0,
+      "titulo": "Preparación según el tipo de incrustación",
+      "explicacion": "Aquí eliges qué tipo de incrustación quieres practicar. Inlay es una preparación interna que respeta las cúspides. Onlay incluye una o más cúspides reducidas. Y en overlay se talla toda la superficie oclusal. Toca el botón Explorar de la opción que quieras.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Inlay_paso1",
+      "numero": 1,
+      "titulo": "Extensión de la caja oclusal",
+      "explicacion": "Empieza marcando el contorno de la caja oclusal. Debe abarcar la lesión o la restauración antigua y los surcos comprometidos, conservando la mayor cantidad posible de estructura dental sana. En una inlay las cúspides se respetan, así que el contorno queda dentro de ellas y deja paredes con espesor suficiente para que no se fracturen.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Inlay_paso2",
+      "numero": 2,
+      "titulo": "Configuración de la caja oclusal",
+      "explicacion": "Ahora dale forma a la caja. El piso debe quedar plano y con profundidad uniforme. Las paredes deben ser ligeramente divergentes hacia oclusal, para que la incrustación entre y salga sin trabarse. Y los ángulos internos deben quedar redondeados, sin socavados ni bordes filosos.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Inlay_paso3",
+      "numero": 3,
+      "titulo": "Eliminación del punto de contacto",
+      "explicacion": "Con una fresa fina, abre el punto de contacto proximal hasta dejarlo libre. Protege el diente vecino con una matriz o una tira metálica para no desgastarlo. Debe quedar un pequeño espacio entre ambos dientes, para poder trabajar sin dañar el adyacente.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Inlay_paso4",
+      "numero": 4,
+      "titulo": "Configuración de la caja proximal",
+      "explicacion": "Ahora forma la caja proximal. Su piso gingival debe quedar plano y, en lo posible, apoyado sobre esmalte sano. Las paredes vestibular y lingual también divergen hacia oclusal y no deben tocar el diente vecino. La pared axial acompaña la curvatura del diente.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Inlay_paso5",
+      "numero": 5,
+      "titulo": "Acabado",
+      "explicacion": "Termina la preparación con instrumentos de grano fino. Alisa el piso y las paredes, elimina las rugosidades y redondea los ángulos internos. Los márgenes deben quedar nítidos y continuos, sin esmalte fracturado ni sin apoyo.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Inlay_paso6",
+      "numero": 6,
+      "titulo": "Acabado",
+      "explicacion": "Haz una última revisión de toda la preparación. Comprueba que no haya socavados, que las paredes sigan siendo divergentes, que los márgenes estén limpios y que haya espacio suficiente para el material. Si todo está correcto, usa el botón Volver a la Maqueta.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Onlay_paso1",
+      "numero": 1,
+      "titulo": "Extensión de la caja oclusal",
+      "explicacion": "Empieza marcando el contorno de la caja oclusal. Debe abarcar la lesión o la restauración antigua y los surcos comprometidos, conservando la mayor cantidad posible de estructura sana. En una onlay, además, el contorno se extiende hacia las cúspides que necesitan ser cubiertas por la restauración.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Onlay_paso2",
+      "numero": 2,
+      "titulo": "Configuración de la caja oclusal",
+      "explicacion": "Ahora dale forma a la caja. El piso debe quedar plano y con profundidad uniforme. Las paredes deben ser ligeramente divergentes hacia oclusal, para que la incrustación entre y salga sin trabarse. Y los ángulos internos deben quedar redondeados, sin socavados ni bordes filosos.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Onlay_paso3",
+      "numero": 3,
+      "titulo": "Eliminación del punto de contacto",
+      "explicacion": "Con una fresa fina, abre el punto de contacto proximal hasta dejarlo libre. Protege el diente vecino con una matriz o una tira metálica para no desgastarlo. Debe quedar un pequeño espacio entre ambos dientes, para poder trabajar sin dañar el adyacente.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Onlay_paso4",
+      "numero": 4,
+      "titulo": "Configuración de la caja proximal",
+      "explicacion": "Ahora forma la caja proximal. Su piso gingival debe quedar plano y, en lo posible, apoyado sobre esmalte sano. Las paredes vestibular y lingual también divergen hacia oclusal y no deben tocar el diente vecino. La pared axial acompaña la curvatura del diente.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Onlay_paso5",
+      "numero": 5,
+      "titulo": "Reducción de cúspides",
+      "explicacion": "Reduce las cúspides que quedaron debilitadas o sin soporte, para que la restauración las cubra. La reducción sigue la anatomía de cada cúspide y debe ser uniforme, con espacio suficiente para el material. Las cúspides funcionales, que reciben más carga al masticar, suelen necesitar un poco más de reducción. El margen de la cobertura queda redondeado y bien definido.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Onlay_paso6",
+      "numero": 6,
+      "titulo": "Acabado",
+      "explicacion": "Termina la preparación con instrumentos de grano fino. Alisa el piso y las paredes, elimina las rugosidades y redondea los ángulos internos. Los márgenes deben quedar nítidos y continuos, sin esmalte fracturado ni sin apoyo.",
+      "estado": "borrador"
+    },
+    {
+      "panel": "Onlay_paso7",
+      "numero": 7,
+      "titulo": "Acabado",
+      "explicacion": "Haz una última revisión de toda la preparación. Comprueba que no haya socavados, que las paredes sigan siendo divergentes, que los márgenes estén limpios y que la reducción de cúspides sea uniforme. Si todo está correcto, usa el botón Volver a la Maqueta.",
+      "estado": "borrador"
+    },
+    { "panel": "Overlay_paso1", "numero": 1, "titulo": "", "explicacion": "", "estado": "pendiente" },
+    { "panel": "Overlay_paso2", "numero": 2, "titulo": "", "explicacion": "", "estado": "pendiente" },
+    { "panel": "Overlay_paso3", "numero": 3, "titulo": "", "explicacion": "", "estado": "pendiente" },
+    { "panel": "Overlay_paso4", "numero": 4, "titulo": "", "explicacion": "", "estado": "pendiente" },
+    { "panel": "Overlay_paso5", "numero": 5, "titulo": "", "explicacion": "", "estado": "pendiente" },
+    { "panel": "Overlay_paso6", "numero": 6, "titulo": "", "explicacion": "", "estado": "pendiente" }
+  ]
+}
