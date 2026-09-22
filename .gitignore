@@ -1,18 +1,44 @@
-# Unity
+# ===== Unity - Proyecto Unity (AR Foundation) =====
 Proyecto Unity/[Ll]ibrary/
 Proyecto Unity/[Tt]emp/
 Proyecto Unity/[Oo]bj/
 Proyecto Unity/[Ll]ogs/
 Proyecto Unity/[Uu]ser[Ss]ettings/
-
-# IDE
+Proyecto Unity/[Mm]emoryCaptures/
 Proyecto Unity/[Bb]uild/
 Proyecto Unity/[Bb]uilds/
 Proyecto Unity/*.csproj
 Proyecto Unity/*.sln
+Proyecto Unity/.vs/
+Proyecto Unity/*.vsconfig
+Proyecto Unity/*.suo
+Proyecto Unity/*.user
+Proyecto Unity/*.userprefs
+Proyecto Unity/*.pidb
+Proyecto Unity/*.booproj
 
+# ===== Unity - VersionVuforia =====
+VersionVuforia/[Ll]ibrary/
+VersionVuforia/[Tt]emp/
+VersionVuforia/[Oo]bj/
+VersionVuforia/[Ll]ogs/
+VersionVuforia/[Uu]ser[Ss]ettings/
+VersionVuforia/[Mm]emoryCaptures/
+VersionVuforia/[Bb]uild/
+VersionVuforia/[Bb]uilds/
+VersionVuforia/*.csproj
+VersionVuforia/*.sln
+VersionVuforia/.vs/
+VersionVuforia/*.vsconfig
+VersionVuforia/*.suo
+VersionVuforia/*.user
+VersionVuforia/*.userprefs
+VersionVuforia/*.pidb
+VersionVuforia/*.booproj
+
+# ===== Archivos propios =====
 Info útil/Manual Unity Tutoriales.pdf
 
-# OS
+# ===== OS =====
 .DS_Store
 Thumbs.db
