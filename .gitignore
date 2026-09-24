@@ -50,3 +50,7 @@ Proyecto Unity/Assets/StreamingAssets/api_config.json.meta
 # Paquetes cacheados (regenerables, pesados)
 VersionVuforia/Packages/*.tgz
 Proyecto Unity/Packages/*.tgz
+
+# Audios provisionales de prueba (voz de Windows) - se reemplazan por los de DeepVoice
+Proyecto Unity/Assets/Resources/VocesProvisionales/
+Proyecto Unity/Assets/Resources/VocesProvisionales.meta

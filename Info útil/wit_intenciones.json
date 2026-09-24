@@ -1,0 +1,643 @@
+{
+  "_nota": "Frases marcadas como [texto](entidad): en Wit.ai se resalta ese texto y se le asigna la entidad. clips = audios que habria que generar con DeepVoice Pro para responder a esa intencion.",
+  "umbral_confianza_sugerido": 0.75,
+  "entidades": [
+    {
+      "nombre": "tipo_incrustacion",
+      "tipo": "keywords",
+      "valores": {
+        "inlay": [
+          "inlay",
+          "in lay",
+          "inlai",
+          "inline",
+          "in line",
+          "inlei",
+          "inley",
+          "in ley",
+          "in lei",
+          "inlain",
+          "hinlay",
+          "hinlei",
+          "inli",
+          "inle"
+        ],
+        "onlay": [
+          "onlay",
+          "on lay",
+          "online",
+          "on line",
+          "onlai",
+          "onlei",
+          "onley",
+          "on ley",
+          "on lei",
+          "onlain",
+          "honlay",
+          "honlei",
+          "unlay",
+          "unlei",
+          "onli",
+          "onle"
+        ],
+        "overlay": [
+          "overlay",
+          "over lay",
+          "overlai",
+          "overlei",
+          "overley",
+          "over ley",
+          "over lei",
+          "overlain",
+          "over lain",
+          "ouverlei",
+          "oberlei",
+          "over le"
+        ]
+      }
+    },
+    {
+      "nombre": "tema_preparacion",
+      "tipo": "keywords",
+      "valores": {
+        "caja_oclusal": [
+          "caja oclusal",
+          "cavidad oclusal",
+          "caja de oclusal",
+          "piso oclusal"
+        ],
+        "caja_proximal": [
+          "caja proximal",
+          "cavidad proximal",
+          "caja de proximal"
+        ],
+        "punto_de_contacto": [
+          "punto de contacto",
+          "contacto proximal",
+          "contacto entre dientes"
+        ],
+        "reduccion_cuspides": [
+          "reduccion de cuspides",
+          "reducción de cúspides",
+          "cuspides",
+          "cúspides",
+          "reducir las cuspides"
+        ],
+        "acabado": [
+          "acabado",
+          "terminado",
+          "pulido de la preparacion",
+          "pulido de la preparación"
+        ],
+        "paredes_divergentes": [
+          "paredes divergentes",
+          "divergencia",
+          "paredes expulsivas",
+          "inclinacion de las paredes",
+          "inclinación de las paredes"
+        ],
+        "angulos_internos": [
+          "angulos internos",
+          "ángulos internos",
+          "angulos redondeados",
+          "ángulos redondeados",
+          "socavados",
+          "retenciones"
+        ],
+        "piso_gingival": [
+          "piso gingival",
+          "piso de la caja proximal"
+        ],
+        "margenes": [
+          "margenes",
+          "márgenes",
+          "bordes de la preparacion",
+          "bordes de la preparación"
+        ],
+        "matriz": [
+          "matriz",
+          "tira metalica",
+          "tira metálica",
+          "proteger el diente vecino"
+        ]
+      }
+    }
+  ],
+  "intenciones": [
+    {
+      "nombre": "saludo",
+      "tipo": "social",
+      "clips": [
+        "respuesta_saludo"
+      ],
+      "frases": [
+        "hola",
+        "hola tano",
+        "buenas",
+        "buenos días",
+        "buenas tardes",
+        "buenas noches",
+        "qué tal",
+        "hey tano",
+        "saludos",
+        "hola doctor",
+        "hola amigo"
+      ]
+    },
+    {
+      "nombre": "despedida",
+      "tipo": "social",
+      "clips": [
+        "respuesta_despedida"
+      ],
+      "frases": [
+        "adiós",
+        "hasta luego",
+        "chao",
+        "nos vemos",
+        "me voy",
+        "hasta pronto",
+        "eso es todo por hoy",
+        "bye",
+        "hasta mañana",
+        "ya me tengo que ir"
+      ]
+    },
+    {
+      "nombre": "agradecimiento",
+      "tipo": "social",
+      "clips": [
+        "respuesta_agradecimiento"
+      ],
+      "frases": [
+        "gracias",
+        "muchas gracias",
+        "te lo agradezco",
+        "gracias tano",
+        "gracias por la explicación",
+        "ok gracias",
+        "mil gracias",
+        "genial gracias",
+        "gracias por tu ayuda"
+      ]
+    },
+    {
+      "nombre": "quien_eres",
+      "tipo": "social",
+      "clips": [
+        "respuesta_quien_eres"
+      ],
+      "frases": [
+        "¿quién eres?",
+        "¿cómo te llamas?",
+        "¿qué eres?",
+        "preséntate",
+        "¿tú quién eres?",
+        "dime quién eres",
+        "¿eres un ciervo?",
+        "¿quién es tano?",
+        "¿cómo te llamas amigo?",
+        "cuéntame de ti"
+      ]
+    },
+    {
+      "nombre": "como_estas",
+      "tipo": "social",
+      "clips": [
+        "respuesta_como_estas"
+      ],
+      "frases": [
+        "¿cómo estás?",
+        "¿qué tal estás?",
+        "¿cómo te va?",
+        "¿todo bien?",
+        "¿cómo andas?",
+        "¿cómo te sientes hoy?",
+        "¿cómo va tu día?",
+        "¿y tú cómo estás?"
+      ]
+    },
+    {
+      "nombre": "elogio",
+      "tipo": "social",
+      "clips": [
+        "respuesta_elogio"
+      ],
+      "frases": [
+        "eres genial",
+        "qué bien explicas",
+        "me gusta esta aplicación",
+        "muy buena app",
+        "eres muy simpático",
+        "excelente",
+        "qué buena explicación",
+        "me encantó",
+        "eres el mejor",
+        "me gustas tano"
+      ]
+    },
+    {
+      "nombre": "que_puedes_hacer",
+      "tipo": "social",
+      "clips": [
+        "respuesta_que_puedes_hacer"
+      ],
+      "frases": [
+        "¿qué puedes hacer?",
+        "¿en qué me puedes ayudar?",
+        "¿qué te puedo preguntar?",
+        "ayuda",
+        "necesito ayuda",
+        "¿para qué sirves?",
+        "¿qué sabes hacer?",
+        "¿cómo me ayudas?",
+        "¿qué sabes?",
+        "¿de qué me puedes hablar?"
+      ]
+    },
+    {
+      "nombre": "como_usar_app",
+      "tipo": "aplicacion",
+      "clips": [
+        "respuesta_como_usar_app"
+      ],
+      "frases": [
+        "¿cómo funciona esta aplicación?",
+        "¿cómo se usa la app?",
+        "¿cómo empiezo?",
+        "explícame cómo usar esto",
+        "¿qué hago primero?",
+        "no sé cómo usar la aplicación",
+        "¿cómo se maneja esto?",
+        "¿por dónde empiezo?",
+        "¿de qué trata esta app?",
+        "¿cómo funciona esto?"
+      ]
+    },
+    {
+      "nombre": "como_colocar_panel",
+      "tipo": "aplicacion",
+      "clips": [
+        "respuesta_como_colocar_panel"
+      ],
+      "frases": [
+        "¿cómo coloco el panel?",
+        "¿cómo pongo el menú en la pared?",
+        "¿por qué no aparece el panel?",
+        "¿cómo muevo el panel?",
+        "¿dónde aparece el panel?",
+        "no me sale el panel",
+        "¿cómo hago que salga el menú?",
+        "¿cómo coloco el menú en el piso?",
+        "no veo el menú",
+        "¿cómo pongo el panel en la mesa?"
+      ]
+    },
+    {
+      "nombre": "como_hablarte",
+      "tipo": "aplicacion",
+      "clips": [
+        "respuesta_como_hablarte"
+      ],
+      "frases": [
+        "¿cómo te hablo?",
+        "¿cómo te hago una pregunta?",
+        "¿cómo te pregunto algo?",
+        "¿tengo que presionarte?",
+        "¿cómo hablo contigo?",
+        "no me escuchas",
+        "¿por qué no me contestas?",
+        "¿cómo activo el micrófono?",
+        "¿cómo te pido ayuda?",
+        "¿cómo hago para que me escuches?"
+      ]
+    },
+    {
+      "nombre": "como_navegar",
+      "tipo": "aplicacion",
+      "clips": [
+        "respuesta_como_navegar"
+      ],
+      "frases": [
+        "¿cómo paso al siguiente paso?",
+        "¿cómo avanzo?",
+        "¿dónde está el botón de siguiente?",
+        "¿cómo regreso al paso anterior?",
+        "¿cómo vuelvo al menú?",
+        "¿cómo cambio de ruta?",
+        "¿para qué sirven las flechas?",
+        "¿cómo me muevo entre pasos?",
+        "¿cómo salgo de esta pantalla?",
+        "¿cómo me devuelvo?"
+      ]
+    },
+    {
+      "nombre": "que_es_maqueta",
+      "tipo": "aplicacion",
+      "clips": [
+        "respuesta_que_es_maqueta"
+      ],
+      "frases": [
+        "¿qué es la maqueta?",
+        "¿qué significa volver a la maqueta?",
+        "¿para qué sirve la maqueta?",
+        "¿en qué maqueta practico?",
+        "¿qué maqueta uso?",
+        "¿qué es el modelo de práctica?",
+        "¿cómo uso la maqueta?",
+        "¿por qué debo volver a la maqueta?"
+      ]
+    },
+    {
+      "nombre": "repetir",
+      "tipo": "comando",
+      "accion": "Vuelve a decir la explicacion del paso actual",
+      "clips": [],
+      "frases": [
+        "repite",
+        "repítelo",
+        "otra vez",
+        "no entendí",
+        "no te entendí",
+        "¿puedes repetir?",
+        "explícalo de nuevo",
+        "explícame este paso",
+        "¿qué hago en este paso?",
+        "no sé qué hacer aquí",
+        "estoy perdido",
+        "vuelve a explicar",
+        "dilo otra vez",
+        "no me quedó claro",
+        "¿de qué trata este paso?"
+      ]
+    },
+    {
+      "nombre": "siguiente_paso",
+      "tipo": "comando",
+      "accion": "Navega al siguiente paso de la ruta",
+      "clips": [],
+      "frases": [
+        "siguiente",
+        "siguiente paso",
+        "avanza",
+        "pasa al siguiente",
+        "continúa",
+        "sigamos",
+        "adelante",
+        "ya terminé este paso",
+        "¿qué sigue?",
+        "vamos al próximo paso",
+        "listo, ¿y ahora?"
+      ]
+    },
+    {
+      "nombre": "paso_anterior",
+      "tipo": "comando",
+      "accion": "Navega al paso anterior de la ruta",
+      "clips": [],
+      "frases": [
+        "atrás",
+        "regresa",
+        "paso anterior",
+        "vuelve al paso anterior",
+        "anterior",
+        "quiero volver un paso",
+        "regrésame",
+        "retrocede",
+        "vamos al paso de antes",
+        "quiero ver el paso anterior"
+      ]
+    },
+    {
+      "nombre": "ir_al_menu",
+      "tipo": "comando",
+      "accion": "Vuelve al menu de entrenamiento",
+      "clips": [],
+      "frases": [
+        "vuelve al menú",
+        "menú principal",
+        "llévame al menú",
+        "quiero elegir otra opción",
+        "regresa al inicio",
+        "quiero cambiar de ruta",
+        "salir al menú",
+        "otra ruta",
+        "ve al inicio",
+        "quiero volver al principio"
+      ]
+    },
+    {
+      "nombre": "elegir_ruta",
+      "tipo": "comando",
+      "accion": "Abre la ruta indicada (inlay, onlay u overlay)",
+      "clips": [],
+      "frases": [
+        "quiero ver [inlay](tipo_incrustacion)",
+        "llévame a [onlay](tipo_incrustacion)",
+        "abre el [overlay](tipo_incrustacion)",
+        "vamos con [onlay](tipo_incrustacion)",
+        "quiero practicar [inlay](tipo_incrustacion)",
+        "muéstrame la ruta de [overlay](tipo_incrustacion)",
+        "empecemos con el [inlay](tipo_incrustacion)",
+        "explorar [onlay](tipo_incrustacion)",
+        "quiero hacer un [overlay](tipo_incrustacion)",
+        "vamos a la ruta de [online](tipo_incrustacion)"
+      ]
+    },
+    {
+      "nombre": "silenciar",
+      "tipo": "comando",
+      "accion": "Detiene lo que Tano esta diciendo",
+      "clips": [],
+      "frases": [
+        "cállate",
+        "silencio",
+        "para",
+        "detente",
+        "ya no hables",
+        "basta",
+        "no hables más",
+        "espera un momento",
+        "alto",
+        "para de hablar"
+      ]
+    },
+    {
+      "nombre": "definicion_incrustacion",
+      "tipo": "contenido",
+      "clips": [
+        "definicion_incrustacion"
+      ],
+      "frases": [
+        "¿qué es una incrustación?",
+        "¿qué es una restauración indirecta?",
+        "explícame qué es una incrustación dental",
+        "¿qué son las incrustaciones?",
+        "¿para qué sirve una incrustación?",
+        "define incrustación",
+        "¿de qué trata esta práctica?",
+        "¿qué vamos a hacer aquí?",
+        "¿qué es una incrustación dental?"
+      ]
+    },
+    {
+      "nombre": "definicion_tipo",
+      "tipo": "contenido",
+      "clips": [
+        "definicion_inlay",
+        "definicion_onlay",
+        "definicion_overlay"
+      ],
+      "frases": [
+        "¿qué es un [inlay](tipo_incrustacion)?",
+        "¿qué es una [onlay](tipo_incrustacion)?",
+        "explícame qué es un [overlay](tipo_incrustacion)",
+        "¿qué significa [onlay](tipo_incrustacion)?",
+        "dime qué es el [inlay](tipo_incrustacion)",
+        "¿en qué consiste un [overlay](tipo_incrustacion)?",
+        "háblame del [onlay](tipo_incrustacion)",
+        "define [inlay](tipo_incrustacion)",
+        "¿qué es un [online](tipo_incrustacion)?",
+        "¿qué es un [in lay](tipo_incrustacion)?",
+        "háblame un poco más del [onlay](tipo_incrustacion)",
+        "habla de un poco más de [inlay](tipo_incrustacion)",
+        "cuéntame sobre el [overlay](tipo_incrustacion)",
+        "dime algo del [onlay](tipo_incrustacion)",
+        "explícame el [inlay](tipo_incrustacion)",
+        "¿qué es [onlay](tipo_incrustacion)?",
+        "¿y qué es el [overlay](tipo_incrustacion)?",
+        "¿en qué consiste el [onlay](tipo_incrustacion)?",
+        "¿qué quiere decir [inlay](tipo_incrustacion)?",
+        "¿qué se entiende por [overlay](tipo_incrustacion)?",
+        "dame la definición de [onlay](tipo_incrustacion)",
+        "¿de qué trata el [inlay](tipo_incrustacion)?",
+        "quiero saber qué es un [overlay](tipo_incrustacion)",
+        "no entiendo qué es un [onlay](tipo_incrustacion)",
+        "cuéntame del [inlay](tipo_incrustacion)",
+        "dime del [onlay](tipo_incrustacion)",
+        "explícame del [overlay](tipo_incrustacion)",
+        "cuéntame más del [onlay](tipo_incrustacion)",
+        "información del [inlay](tipo_incrustacion)"
+      ]
+    },
+    {
+      "nombre": "diferencia_tipos",
+      "tipo": "contenido",
+      "clips": [
+        "diferencia_tipos"
+      ],
+      "frases": [
+        "¿cuál es la diferencia entre [inlay](tipo_incrustacion) y [onlay](tipo_incrustacion)?",
+        "¿en qué se diferencian el [onlay](tipo_incrustacion) y el [overlay](tipo_incrustacion)?",
+        "diferencias entre inlay onlay y overlay",
+        "¿[inlay](tipo_incrustacion) y [overlay](tipo_incrustacion) es lo mismo?",
+        "compara los tres tipos",
+        "¿qué diferencia hay entre los tipos de incrustación?",
+        "¿cuál es más grande, el [onlay](tipo_incrustacion) o el [overlay](tipo_incrustacion)?",
+        "¿cómo distingo un [inlay](tipo_incrustacion) de un [onlay](tipo_incrustacion)?",
+        "¿cuál es la diferencia entre [online](tipo_incrustacion) e [inline](tipo_incrustacion)?"
+      ]
+    },
+    {
+      "nombre": "cuando_usar_tipo",
+      "tipo": "contenido",
+      "clips": [
+        "cuando_inlay",
+        "cuando_onlay",
+        "cuando_overlay"
+      ],
+      "frases": [
+        "¿cuándo se usa un [inlay](tipo_incrustacion)?",
+        "¿en qué casos se indica un [onlay](tipo_incrustacion)?",
+        "¿cuándo elijo [overlay](tipo_incrustacion)?",
+        "¿para qué casos sirve el [onlay](tipo_incrustacion)?",
+        "¿cuándo conviene hacer un [inlay](tipo_incrustacion)?",
+        "¿cuándo debo usar [onlay](tipo_incrustacion) y no inlay?",
+        "indicaciones del [inlay](tipo_incrustacion)",
+        "¿cuándo hago un [overlay](tipo_incrustacion)?",
+        "¿en qué situación uso [online](tipo_incrustacion)?"
+      ]
+    },
+    {
+      "nombre": "pasos_ruta",
+      "tipo": "contenido",
+      "clips": [
+        "pasos_inlay",
+        "pasos_onlay",
+        "pasos_overlay"
+      ],
+      "frases": [
+        "¿cuáles son los pasos del [inlay](tipo_incrustacion)?",
+        "¿cuántos pasos tiene el [onlay](tipo_incrustacion)?",
+        "¿qué pasos sigo en el [overlay](tipo_incrustacion)?",
+        "dime los pasos de la preparación [inlay](tipo_incrustacion)",
+        "resume el proceso de [onlay](tipo_incrustacion)",
+        "¿cómo se hace un [inlay](tipo_incrustacion)?",
+        "explícame el proceso del [onlay](tipo_incrustacion)",
+        "explícame un poquito el proceso en [online](tipo_incrustacion)",
+        "¿cómo se prepara un [overlay](tipo_incrustacion)?"
+      ]
+    },
+    {
+      "nombre": "explicar_tema",
+      "tipo": "contenido",
+      "clips": [
+        "tema_caja_oclusal",
+        "tema_caja_proximal",
+        "tema_punto_de_contacto",
+        "tema_reduccion_cuspides",
+        "tema_acabado",
+        "tema_paredes_divergentes",
+        "tema_angulos_internos",
+        "tema_piso_gingival",
+        "tema_margenes",
+        "tema_matriz"
+      ],
+      "frases": [
+        "¿qué es la [caja oclusal](tema_preparacion)?",
+        "¿cómo se hace la [caja proximal](tema_preparacion)?",
+        "¿por qué se elimina el [punto de contacto](tema_preparacion)?",
+        "explícame la [reducción de cúspides](tema_preparacion)",
+        "¿cómo debe quedar el [acabado](tema_preparacion)?",
+        "¿por qué las [paredes divergentes](tema_preparacion)?",
+        "¿qué son los [ángulos internos](tema_preparacion)?",
+        "¿para qué sirve la [matriz](tema_preparacion)?",
+        "¿cómo hago el [piso gingival](tema_preparacion)?",
+        "¿cómo deben quedar los [márgenes](tema_preparacion)?",
+        "¿qué son los [socavados](tema_preparacion)?",
+        "háblame de las [cúspides](tema_preparacion)",
+        "¿cómo configuro la [caja oclusal](tema_preparacion)?"
+      ]
+    },
+    {
+      "nombre": "fuera_de_alcance",
+      "tipo": "proteccion",
+      "clips": [
+        "respuesta_fuera_de_alcance"
+      ],
+      "frases": [
+        "¿cuánto cuesta una incrustación?",
+        "¿qué material es mejor, cerámica o resina?",
+        "¿cómo se cementa la incrustación?",
+        "¿qué anestesia uso?",
+        "¿quién ganó el mundial?",
+        "¿qué hora es?",
+        "cuéntame un chiste",
+        "¿cómo está el clima?",
+        "¿cuánto tiempo dura una incrustación?",
+        "¿qué marca de fresas recomiendas?",
+        "¿cómo se hace una corona?",
+        "¿cuánto se cobra por una incrustación?",
+        "¿qué es una endodoncia?",
+        "¿cuánto duele?",
+        "¿cuál es tu comida favorita?",
+        "recomiéndame una película",
+        "¿cuál es la capital de Francia?",
+        "¿cuál es el país más grande del mundo?",
+        "¿cuál es tu deporte favorito?",
+        "¿cuál es la mejor marca de celular?",
+        "¿cuál es el animal más rápido?"
+      ]
+    }
+  ]
+}

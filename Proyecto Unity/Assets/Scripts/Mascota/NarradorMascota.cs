@@ -6,11 +6,10 @@ using UnityEngine;
 public class NarradorMascota : MonoBehaviour
 {
     private NavegacionPasos navegacion;
-    private ContenidoMascota contenido;
     private AudioSource fuenteAudio;
     private AnimacionHablar animacion;
     private Coroutine narracionActual;
-    private AudioClip clipActual;
+    private readonly HashSet<string> avisados = new HashSet<string>();
     private bool activo;
     private bool saludoDicho;
 
@@ -19,7 +18,6 @@ public class NarradorMascota : MonoBehaviour
     public void Configurar(Transform mascota, NavegacionPasos navegacionPasos)
     {
         navegacion = navegacionPasos;
-        contenido = ContenidoMascota.Cargar();
 
         fuenteAudio = mascota.GetComponent<AudioSource>();
         if (fuenteAudio == null)
@@ -46,53 +44,40 @@ public class NarradorMascota : MonoBehaviour
     public void IniciarNarracion()
     {
         activo = true;
-        if (contenido == null)
-            return;
 
-        List<string> textos = new List<string>();
+        List<string> clips = new List<string>();
 
         if (!saludoDicho)
         {
             saludoDicho = true;
-            if (!string.IsNullOrWhiteSpace(contenido.saludo))
-                textos.Add(contenido.saludo);
+            if (Cargar(CatalogoVoces.Saludo) != null)
+                clips.Add(CatalogoVoces.Saludo);
         }
 
-        string guion = GuionDelPasoActual();
-        if (guion != null)
-            textos.Add(guion);
+        string paso = NombrePaso();
+        if (Cargar(paso) != null)
+            clips.Add(paso);
 
-        Narrar(textos);
+        Iniciar(clips);
     }
 
-    private void AlCambiarPaso(int indice)
+    public bool RepetirPaso()
     {
-        if (!activo || contenido == null)
-            return;
+        string paso = NombrePaso();
+        if (Cargar(paso) == null)
+            return false;
 
-        string guion = GuionDelPasoActual();
-        if (guion != null)
-            Narrar(new List<string> { guion });
-        else
-            Detener();
+        Iniciar(new List<string> { paso });
+        return true;
     }
 
-    private string GuionDelPasoActual()
+    public bool Decir(string clip)
     {
-        string panel = navegacion != null ? navegacion.NombrePasoActual : null;
-        return contenido.ConstruirGuion(contenido.BuscarPaso(panel));
-    }
+        if (Cargar(clip) == null)
+            return false;
 
-    private void Narrar(List<string> textos)
-    {
-        Detener();
-        if (textos.Count > 0)
-            narracionActual = StartCoroutine(ReproducirSecuencia(textos));
-    }
-
-    public void Decir(string texto)
-    {
-        Narrar(new List<string> { texto });
+        Iniciar(new List<string> { clip });
+        return true;
     }
 
     public void Detener()
@@ -107,28 +92,43 @@ public class NarradorMascota : MonoBehaviour
             fuenteAudio.Stop();
     }
 
-    private IEnumerator ReproducirSecuencia(List<string> textos)
+    private void AlCambiarPaso(int indice)
     {
-        foreach (string texto in textos)
-        {
-            AudioClip clip = null;
-            IEnumerator obtener = ElevenLabsClient.ObtenerAudio(texto, resultado => clip = resultado);
-            while (obtener.MoveNext())
-                yield return obtener.Current;
+        if (!activo)
+            return;
 
+        string paso = NombrePaso();
+        if (Cargar(paso) != null)
+            Iniciar(new List<string> { paso });
+        else
+            Detener();
+    }
+
+    private string NombrePaso()
+    {
+        return navegacion != null ? navegacion.NombrePasoActual : null;
+    }
+
+    private void Iniciar(List<string> clips)
+    {
+        Detener();
+        if (clips.Count > 0)
+            narracionActual = StartCoroutine(Reproducir(clips));
+    }
+
+    private IEnumerator Reproducir(List<string> clips)
+    {
+        foreach (string nombre in clips)
+        {
+            AudioClip clip = Cargar(nombre);
             if (clip == null)
                 continue;
 
-            if (clipActual != null)
-                Destroy(clipActual);
-
-            clipActual = clip;
             fuenteAudio.clip = clip;
             fuenteAudio.Play();
-
             AudioIniciado?.Invoke();
 
-            if (animacion != null && contenido != null && texto == contenido.saludo)
+            if (animacion != null && nombre == CatalogoVoces.Saludo)
                 animacion.Saludar();
 
             while (fuenteAudio.isPlaying)
@@ -138,5 +138,17 @@ public class NarradorMascota : MonoBehaviour
         }
 
         narracionActual = null;
+    }
+
+    private AudioClip Cargar(string nombre)
+    {
+        if (string.IsNullOrEmpty(nombre))
+            return null;
+
+        AudioClip clip = CatalogoVoces.Cargar(nombre);
+        if (clip == null && avisados.Add(nombre))
+            Debug.LogWarning($"[Narrador] Todavia no hay audio '{nombre}' en Assets/Resources/Voces.");
+
+        return clip;
     }
 }

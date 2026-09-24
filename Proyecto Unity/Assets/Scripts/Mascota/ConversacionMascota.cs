@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,21 +6,16 @@ using UnityEngine.XR.Interaction.Toolkit.Samples.ARStarterAssets;
 
 public class ConversacionMascota : MonoBehaviour
 {
-    private const string FraseNoEntendi = "No te escuché bien. ¿Puedes repetirlo?";
-    private const string FraseError = "Tuve un problema para responderte. Inténtalo de nuevo en un momento.";
-
     [SerializeField] private float duracionMinima = 0.5f;
-    [SerializeField] private int mensajesDeMemoria = 6;
 
     private Transform mascota;
     private NarradorMascota narrador;
     private NavegacionPasos navegacion;
     private AnimacionHablar animacion;
     private ARInteractorSpawnTrigger spawnTrigger;
-    private ContenidoMascota contenido;
+    private IntencionesLocal intenciones;
     private BoxCollider colisionMascota;
     private Coroutine procesoActual;
-    private readonly List<GroqClient.Mensaje> historial = new List<GroqClient.Mensaje>();
     private bool activo;
     private bool grabando;
     private bool presionadoAntes;
@@ -34,7 +27,7 @@ public class ConversacionMascota : MonoBehaviour
         narrador = narradorMascota;
         navegacion = navegacionPasos;
         spawnTrigger = disparador;
-        contenido = ContenidoMascota.Cargar();
+        intenciones = IntencionesLocal.Crear();
         animacion = mascota.GetComponent<AnimacionHablar>();
 
         CrearColision();
@@ -105,8 +98,7 @@ public class ConversacionMascota : MonoBehaviour
 
         if (wav == null || segundos < duracionMinima)
         {
-            if (animacion != null)
-                animacion.Escuchando(false);
+            DejarDeEscuchar();
             return;
         }
 
@@ -116,91 +108,148 @@ public class ConversacionMascota : MonoBehaviour
     private IEnumerator ProcesarPregunta(byte[] wav)
     {
         string pregunta = null;
-        IEnumerator transcripcion = GroqClient.Transcribir(wav, r => pregunta = r);
+        IEnumerator transcripcion = WitClient.Transcribir(wav, r => pregunta = r);
         while (transcripcion.MoveNext())
             yield return transcripcion.Current;
 
-        if (string.IsNullOrWhiteSpace(pregunta))
+        ResultadoIntencion resultado = Clasificar(pregunta);
+        string origen = "Wit";
+        string textoWit = pregunta;
+        string textoGroq = null;
+
+        if (NecesitaRespaldo(resultado) && GroqDisponible())
         {
-            procesoActual = null;
-            narrador.Decir(FraseNoEntendi);
-            yield break;
+            string alternativa = null;
+            IEnumerator respaldo = GroqClient.Transcribir(wav, r => alternativa = r);
+            while (respaldo.MoveNext())
+                yield return respaldo.Current;
+
+            textoGroq = alternativa;
+            ResultadoIntencion otro = Clasificar(alternativa);
+            if (otro != null && (resultado == null || otro.puntaje > resultado.puntaje))
+            {
+                pregunta = alternativa;
+                resultado = otro;
+                origen = "Groq (respaldo)";
+            }
         }
-
-        Debug.Log($"[Conversacion] Alumno: {pregunta}");
-
-        string respuesta = null;
-        IEnumerator consulta = GroqClient.Preguntar(ConstruirMensajes(pregunta), r => respuesta = r);
-        while (consulta.MoveNext())
-            yield return consulta.Current;
 
         procesoActual = null;
 
-        if (string.IsNullOrWhiteSpace(respuesta))
+        if (string.IsNullOrWhiteSpace(pregunta))
         {
-            narrador.Decir(FraseError);
+            Debug.Log($"[Conversacion] No se entendio nada | Wit: '{textoWit}' | Groq: '{textoGroq}'");
+            Responder(CatalogoVoces.NoEscuche);
             yield break;
         }
 
-        Debug.Log($"[Conversacion] Tano: {respuesta}");
-        Recordar(pregunta, respuesta);
-        narrador.Decir(respuesta);
+        string nombre = resultado != null && resultado.intencion != null ? resultado.intencion.nombre : "(ninguna)";
+        float puntaje = resultado != null ? resultado.puntaje : 0f;
+        Debug.Log($"[Conversacion] ({origen}) Alumno: {pregunta} | Intencion: {nombre} ({puntaje:0.00}) | Wit: '{textoWit}' | Groq: '{textoGroq}'");
+
+        Ejecutar(resultado);
     }
 
-    private List<GroqClient.Mensaje> ConstruirMensajes(string pregunta)
+    private ResultadoIntencion Clasificar(string texto)
     {
-        List<GroqClient.Mensaje> mensajes = new List<GroqClient.Mensaje>
-        {
-            new GroqClient.Mensaje { role = "system", content = ConstruirContexto() }
-        };
-
-        mensajes.AddRange(historial);
-        mensajes.Add(new GroqClient.Mensaje { role = "user", content = pregunta });
-        return mensajes;
+        return intenciones == null || string.IsNullOrWhiteSpace(texto) ? null : intenciones.Clasificar(texto);
     }
 
-    private string ConstruirContexto()
+    private bool NecesitaRespaldo(ResultadoIntencion resultado)
     {
-        StringBuilder contexto = new StringBuilder();
+        return resultado == null || resultado.intencion == null || resultado.puntaje < intenciones.ConfianzaAlta;
+    }
 
-        if (contenido == null)
-            return "Eres Tano, un asistente amable. Responde en espanol en maximo tres oraciones.";
+    private static bool GroqDisponible()
+    {
+        DatosApi datos = ConfigApi.Datos;
+        return datos != null && datos.groqRespaldo && !string.IsNullOrEmpty(datos.groqApiKey);
+    }
 
-        contexto.Append(contenido.persona).Append("\n\nCONTENIDO DE LA APLICACION:\n").Append(contenido.general).Append("\n\n");
-
-        foreach (PasoContenido paso in contenido.pasos)
+    private void Ejecutar(ResultadoIntencion resultado)
+    {
+        if (resultado == null || resultado.intencion == null)
         {
-            if (string.IsNullOrWhiteSpace(paso.explicacion))
-                continue;
-
-            contexto.Append("- ").Append(paso.panel);
-            if (paso.numero > 0)
-                contexto.Append(" (paso ").Append(paso.numero).Append(")");
-            contexto.Append(' ').Append(paso.titulo).Append(": ").Append(paso.explicacion).Append('\n');
+            Responder(CatalogoVoces.NoSeguro);
+            return;
         }
 
-        contexto.Append("\nNOTA: la pregunta del alumno viene de un reconocimiento de voz que puede escribir mal los terminos. Si una palabra parece una mala transcripcion de inlay, onlay u overlay, interpretala como ese termino.\n");
+        switch (resultado.intencion.accion)
+        {
+            case "repetir":
+                if (!narrador.RepetirPaso())
+                    DejarDeEscuchar();
+                break;
 
-        PasoContenido actual = contenido.BuscarPaso(navegacion != null ? navegacion.NombrePasoActual : null);
-        if (actual != null)
-            contexto.Append("\nEl alumno esta viendo ahora: ").Append(actual.panel).Append(" (").Append(actual.titulo).Append(").");
+            case "siguiente":
+                if (navegacion == null)
+                    DejarDeEscuchar();
+                else if (navegacion.NombrePasoActual == NavegacionPasos.NombreMenu)
+                    Responder(CatalogoVoces.EligeRuta);
+                else if (!navegacion.IrAlSiguiente())
+                    Responder(CatalogoVoces.UltimoPaso);
+                else
+                    DejarDeEscuchar();
+                break;
 
-        return contexto.ToString();
+            case "anterior":
+                if (navegacion != null && navegacion.NombrePasoActual != NavegacionPasos.NombreMenu)
+                    navegacion.IrAlAnterior();
+                DejarDeEscuchar();
+                break;
+
+            case "menu":
+                if (navegacion != null)
+                    navegacion.IrAPasoPorNombre(NavegacionPasos.NombreMenu);
+                DejarDeEscuchar();
+                break;
+
+            case "ruta":
+                IrARuta(resultado.ValorDe(resultado.intencion.entidad));
+                break;
+
+            case "silenciar":
+                narrador.Detener();
+                DejarDeEscuchar();
+                break;
+
+            default:
+                string clip = resultado.Clip;
+                Responder(clip != null ? clip : CatalogoVoces.NoSeguro);
+                break;
+        }
     }
 
-    private void Recordar(string pregunta, string respuesta)
+    private void IrARuta(string tipo)
     {
-        historial.Add(new GroqClient.Mensaje { role = "user", content = pregunta });
-        historial.Add(new GroqClient.Mensaje { role = "assistant", content = respuesta });
+        if (string.IsNullOrEmpty(tipo) || navegacion == null)
+        {
+            Responder(CatalogoVoces.NoSeguro);
+            return;
+        }
 
-        while (historial.Count > mensajesDeMemoria)
-            historial.RemoveAt(0);
+        string paso = char.ToUpperInvariant(tipo[0]) + tipo.Substring(1) + "_paso1";
+        if (navegacion.IrAPasoPorNombre(paso))
+            DejarDeEscuchar();
+        else
+            Responder(CatalogoVoces.NoSeguro);
+    }
+
+    private void Responder(string clip)
+    {
+        if (!narrador.Decir(clip))
+            DejarDeEscuchar();
+    }
+
+    private void DejarDeEscuchar()
+    {
+        if (animacion != null)
+            animacion.Escuchando(false);
     }
 
     private void AlIniciarAudio()
     {
-        if (animacion != null)
-            animacion.Escuchando(false);
+        DejarDeEscuchar();
     }
 
     private void AlCambiarPaso(int indice)
@@ -216,8 +265,8 @@ public class ConversacionMascota : MonoBehaviour
             procesoActual = null;
         }
 
-        if (animacion != null && !grabando)
-            animacion.Escuchando(false);
+        if (!grabando)
+            DejarDeEscuchar();
     }
 
     private bool LeerPuntero(out Vector2 posicion)

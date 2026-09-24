@@ -1,0 +1,675 @@
+{
+ "umbral": 0.4,
+ "margen": 0.03,
+ "confianzaAlta": 0.6,
+ "entidades": [
+  {
+   "nombre": "tipo_incrustacion",
+   "plantilla": "tipoent",
+   "valores": [
+    {
+     "valor": "inlay",
+     "sinonimos": [
+      "inlay",
+      "in lay",
+      "inlai",
+      "inline",
+      "in line",
+      "inlei",
+      "inley",
+      "in ley",
+      "in lei",
+      "inlain",
+      "hinlay",
+      "hinlei",
+      "inli",
+      "inle"
+     ]
+    },
+    {
+     "valor": "onlay",
+     "sinonimos": [
+      "onlay",
+      "on lay",
+      "online",
+      "on line",
+      "onlai",
+      "onlei",
+      "onley",
+      "on ley",
+      "on lei",
+      "onlain",
+      "honlay",
+      "honlei",
+      "unlay",
+      "unlei",
+      "onli",
+      "onle"
+     ]
+    },
+    {
+     "valor": "overlay",
+     "sinonimos": [
+      "overlay",
+      "over lay",
+      "overlai",
+      "overlei",
+      "overley",
+      "over ley",
+      "over lei",
+      "overlain",
+      "over lain",
+      "ouverlei",
+      "oberlei",
+      "over le"
+     ]
+    }
+   ]
+  },
+  {
+   "nombre": "tema_preparacion",
+   "plantilla": "temaent",
+   "valores": [
+    {
+     "valor": "caja_oclusal",
+     "sinonimos": [
+      "caja oclusal",
+      "cavidad oclusal",
+      "caja de oclusal",
+      "piso oclusal"
+     ]
+    },
+    {
+     "valor": "caja_proximal",
+     "sinonimos": [
+      "caja proximal",
+      "cavidad proximal",
+      "caja de proximal"
+     ]
+    },
+    {
+     "valor": "punto_de_contacto",
+     "sinonimos": [
+      "punto de contacto",
+      "contacto proximal",
+      "contacto entre dientes"
+     ]
+    },
+    {
+     "valor": "reduccion_cuspides",
+     "sinonimos": [
+      "reduccion cuspides",
+      "reduccion de cuspides",
+      "reducción de cúspides",
+      "cuspides",
+      "cúspides",
+      "reducir las cuspides"
+     ]
+    },
+    {
+     "valor": "acabado",
+     "sinonimos": [
+      "acabado",
+      "terminado",
+      "pulido de la preparacion",
+      "pulido de la preparación"
+     ]
+    },
+    {
+     "valor": "paredes_divergentes",
+     "sinonimos": [
+      "paredes divergentes",
+      "divergencia",
+      "paredes expulsivas",
+      "inclinacion de las paredes",
+      "inclinación de las paredes"
+     ]
+    },
+    {
+     "valor": "angulos_internos",
+     "sinonimos": [
+      "angulos internos",
+      "ángulos internos",
+      "angulos redondeados",
+      "ángulos redondeados",
+      "socavados",
+      "retenciones"
+     ]
+    },
+    {
+     "valor": "piso_gingival",
+     "sinonimos": [
+      "piso gingival",
+      "piso de la caja proximal"
+     ]
+    },
+    {
+     "valor": "margenes",
+     "sinonimos": [
+      "margenes",
+      "márgenes",
+      "bordes de la preparacion",
+      "bordes de la preparación"
+     ]
+    },
+    {
+     "valor": "matriz",
+     "sinonimos": [
+      "matriz",
+      "tira metalica",
+      "tira metálica",
+      "proteger el diente vecino"
+     ]
+    }
+   ]
+  }
+ ],
+ "intenciones": [
+  {
+   "nombre": "saludo",
+   "accion": "",
+   "clip": "respuesta_saludo",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "hola",
+    "hola tano",
+    "buenas",
+    "buenos días",
+    "buenas tardes",
+    "buenas noches",
+    "qué tal",
+    "hey tano",
+    "saludos",
+    "hola doctor",
+    "hola amigo"
+   ]
+  },
+  {
+   "nombre": "despedida",
+   "accion": "",
+   "clip": "respuesta_despedida",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "adiós",
+    "hasta luego",
+    "chao",
+    "nos vemos",
+    "me voy",
+    "hasta pronto",
+    "eso es todo por hoy",
+    "bye",
+    "hasta mañana",
+    "ya me tengo que ir"
+   ]
+  },
+  {
+   "nombre": "agradecimiento",
+   "accion": "",
+   "clip": "respuesta_agradecimiento",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "gracias",
+    "muchas gracias",
+    "te lo agradezco",
+    "gracias tano",
+    "gracias por la explicación",
+    "ok gracias",
+    "mil gracias",
+    "genial gracias",
+    "gracias por tu ayuda"
+   ]
+  },
+  {
+   "nombre": "quien_eres",
+   "accion": "",
+   "clip": "respuesta_quien_eres",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿quién eres?",
+    "¿cómo te llamas?",
+    "¿qué eres?",
+    "preséntate",
+    "¿tú quién eres?",
+    "dime quién eres",
+    "¿eres un ciervo?",
+    "¿quién es tano?",
+    "¿cómo te llamas amigo?",
+    "cuéntame de ti"
+   ]
+  },
+  {
+   "nombre": "como_estas",
+   "accion": "",
+   "clip": "respuesta_como_estas",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿cómo estás?",
+    "¿qué tal estás?",
+    "¿cómo te va?",
+    "¿todo bien?",
+    "¿cómo andas?",
+    "¿cómo te sientes hoy?",
+    "¿cómo va tu día?",
+    "¿y tú cómo estás?"
+   ]
+  },
+  {
+   "nombre": "elogio",
+   "accion": "",
+   "clip": "respuesta_elogio",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "eres genial",
+    "qué bien explicas",
+    "me gusta esta aplicación",
+    "muy buena app",
+    "eres muy simpático",
+    "excelente",
+    "qué buena explicación",
+    "me encantó",
+    "eres el mejor",
+    "me gustas tano"
+   ]
+  },
+  {
+   "nombre": "que_puedes_hacer",
+   "accion": "",
+   "clip": "respuesta_que_puedes_hacer",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿qué puedes hacer?",
+    "¿en qué me puedes ayudar?",
+    "¿qué te puedo preguntar?",
+    "ayuda",
+    "necesito ayuda",
+    "¿para qué sirves?",
+    "¿qué sabes hacer?",
+    "¿cómo me ayudas?",
+    "¿qué sabes?",
+    "¿de qué me puedes hablar?"
+   ]
+  },
+  {
+   "nombre": "como_usar_app",
+   "accion": "",
+   "clip": "respuesta_como_usar_app",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿cómo funciona esta aplicación?",
+    "¿cómo se usa la app?",
+    "¿cómo empiezo?",
+    "explícame cómo usar esto",
+    "¿qué hago primero?",
+    "no sé cómo usar la aplicación",
+    "¿cómo se maneja esto?",
+    "¿por dónde empiezo?",
+    "¿de qué trata esta app?",
+    "¿cómo funciona esto?"
+   ]
+  },
+  {
+   "nombre": "como_colocar_panel",
+   "accion": "",
+   "clip": "respuesta_como_colocar_panel",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿cómo coloco el panel?",
+    "¿cómo pongo el menú en la pared?",
+    "¿por qué no aparece el panel?",
+    "¿cómo muevo el panel?",
+    "¿dónde aparece el panel?",
+    "no me sale el panel",
+    "¿cómo hago que salga el menú?",
+    "¿cómo coloco el menú en el piso?",
+    "no veo el menú",
+    "¿cómo pongo el panel en la mesa?"
+   ]
+  },
+  {
+   "nombre": "como_hablarte",
+   "accion": "",
+   "clip": "respuesta_como_hablarte",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿cómo te hablo?",
+    "¿cómo te hago una pregunta?",
+    "¿cómo te pregunto algo?",
+    "¿tengo que presionarte?",
+    "¿cómo hablo contigo?",
+    "no me escuchas",
+    "¿por qué no me contestas?",
+    "¿cómo activo el micrófono?",
+    "¿cómo te pido ayuda?",
+    "¿cómo hago para que me escuches?"
+   ]
+  },
+  {
+   "nombre": "como_navegar",
+   "accion": "",
+   "clip": "respuesta_como_navegar",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿cómo paso al siguiente paso?",
+    "¿cómo avanzo?",
+    "¿dónde está el botón de siguiente?",
+    "¿cómo regreso al paso anterior?",
+    "¿cómo vuelvo al menú?",
+    "¿cómo cambio de ruta?",
+    "¿para qué sirven las flechas?",
+    "¿cómo me muevo entre pasos?",
+    "¿cómo salgo de esta pantalla?",
+    "¿cómo me devuelvo?"
+   ]
+  },
+  {
+   "nombre": "que_es_maqueta",
+   "accion": "",
+   "clip": "respuesta_que_es_maqueta",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿qué es la maqueta?",
+    "¿qué significa volver a la maqueta?",
+    "¿para qué sirve la maqueta?",
+    "¿en qué maqueta practico?",
+    "¿qué maqueta uso?",
+    "¿qué es el modelo de práctica?",
+    "¿cómo uso la maqueta?",
+    "¿por qué debo volver a la maqueta?"
+   ]
+  },
+  {
+   "nombre": "repetir",
+   "accion": "repetir",
+   "clip": "",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "repite",
+    "repítelo",
+    "otra vez",
+    "no entendí",
+    "no te entendí",
+    "¿puedes repetir?",
+    "explícalo de nuevo",
+    "explícame este paso",
+    "¿qué hago en este paso?",
+    "no sé qué hacer aquí",
+    "estoy perdido",
+    "vuelve a explicar",
+    "dilo otra vez",
+    "no me quedó claro",
+    "¿de qué trata este paso?"
+   ]
+  },
+  {
+   "nombre": "siguiente_paso",
+   "accion": "siguiente",
+   "clip": "",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "siguiente",
+    "siguiente paso",
+    "avanza",
+    "pasa al siguiente",
+    "continúa",
+    "sigamos",
+    "adelante",
+    "ya terminé este paso",
+    "¿qué sigue?",
+    "vamos al próximo paso",
+    "listo, ¿y ahora?"
+   ]
+  },
+  {
+   "nombre": "paso_anterior",
+   "accion": "anterior",
+   "clip": "",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "atrás",
+    "regresa",
+    "paso anterior",
+    "vuelve al paso anterior",
+    "anterior",
+    "quiero volver un paso",
+    "regrésame",
+    "retrocede",
+    "vamos al paso de antes",
+    "quiero ver el paso anterior"
+   ]
+  },
+  {
+   "nombre": "ir_al_menu",
+   "accion": "menu",
+   "clip": "",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "vuelve al menú",
+    "menú principal",
+    "llévame al menú",
+    "quiero elegir otra opción",
+    "regresa al inicio",
+    "quiero cambiar de ruta",
+    "salir al menú",
+    "otra ruta",
+    "ve al inicio",
+    "quiero volver al principio"
+   ]
+  },
+  {
+   "nombre": "elegir_ruta",
+   "accion": "ruta",
+   "clip": "",
+   "entidad": "tipo_incrustacion",
+   "prefijo": "",
+   "frases": [
+    "quiero ver inlay",
+    "llévame a onlay",
+    "abre el overlay",
+    "vamos con onlay",
+    "quiero practicar inlay",
+    "muéstrame la ruta de overlay",
+    "empecemos con el inlay",
+    "explorar onlay",
+    "quiero hacer un overlay",
+    "vamos a la ruta de online"
+   ]
+  },
+  {
+   "nombre": "silenciar",
+   "accion": "silenciar",
+   "clip": "",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "cállate",
+    "silencio",
+    "para",
+    "detente",
+    "ya no hables",
+    "basta",
+    "no hables más",
+    "espera un momento",
+    "alto",
+    "para de hablar"
+   ]
+  },
+  {
+   "nombre": "definicion_incrustacion",
+   "accion": "",
+   "clip": "definicion_incrustacion",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿qué es una incrustación?",
+    "¿qué es una restauración indirecta?",
+    "explícame qué es una incrustación dental",
+    "¿qué son las incrustaciones?",
+    "¿para qué sirve una incrustación?",
+    "define incrustación",
+    "¿de qué trata esta práctica?",
+    "¿qué vamos a hacer aquí?",
+    "¿qué es una incrustación dental?"
+   ]
+  },
+  {
+   "nombre": "definicion_tipo",
+   "accion": "",
+   "clip": "",
+   "entidad": "tipo_incrustacion",
+   "prefijo": "definicion_",
+   "frases": [
+    "¿qué es un inlay?",
+    "¿qué es una onlay?",
+    "explícame qué es un overlay",
+    "¿qué significa onlay?",
+    "dime qué es el inlay",
+    "¿en qué consiste un overlay?",
+    "háblame del onlay",
+    "define inlay",
+    "¿qué es un online?",
+    "¿qué es un in lay?",
+    "háblame un poco más del onlay",
+    "habla de un poco más de inlay",
+    "cuéntame sobre el overlay",
+    "dime algo del onlay",
+    "explícame el inlay",
+    "¿qué es onlay?",
+    "¿y qué es el overlay?",
+    "¿en qué consiste el onlay?",
+    "¿qué quiere decir inlay?",
+    "¿qué se entiende por overlay?",
+    "dame la definición de onlay",
+    "¿de qué trata el inlay?",
+    "quiero saber qué es un overlay",
+    "no entiendo qué es un onlay",
+    "cuéntame del inlay",
+    "dime del onlay",
+    "explícame del overlay",
+    "cuéntame más del onlay",
+    "información del inlay"
+   ]
+  },
+  {
+   "nombre": "diferencia_tipos",
+   "accion": "",
+   "clip": "diferencia_tipos",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿cuál es la diferencia entre inlay y onlay?",
+    "¿en qué se diferencian el onlay y el overlay?",
+    "diferencias entre inlay onlay y overlay",
+    "¿inlay y overlay es lo mismo?",
+    "compara los tres tipos",
+    "¿qué diferencia hay entre los tipos de incrustación?",
+    "¿cuál es más grande, el onlay o el overlay?",
+    "¿cómo distingo un inlay de un onlay?",
+    "¿cuál es la diferencia entre online e inline?"
+   ]
+  },
+  {
+   "nombre": "cuando_usar_tipo",
+   "accion": "",
+   "clip": "",
+   "entidad": "tipo_incrustacion",
+   "prefijo": "cuando_",
+   "frases": [
+    "¿cuándo se usa un inlay?",
+    "¿en qué casos se indica un onlay?",
+    "¿cuándo elijo overlay?",
+    "¿para qué casos sirve el onlay?",
+    "¿cuándo conviene hacer un inlay?",
+    "¿cuándo debo usar onlay y no inlay?",
+    "indicaciones del inlay",
+    "¿cuándo hago un overlay?",
+    "¿en qué situación uso online?"
+   ]
+  },
+  {
+   "nombre": "pasos_ruta",
+   "accion": "",
+   "clip": "",
+   "entidad": "tipo_incrustacion",
+   "prefijo": "pasos_",
+   "frases": [
+    "¿cuáles son los pasos del inlay?",
+    "¿cuántos pasos tiene el onlay?",
+    "¿qué pasos sigo en el overlay?",
+    "dime los pasos de la preparación inlay",
+    "resume el proceso de onlay",
+    "¿cómo se hace un inlay?",
+    "explícame el proceso del onlay",
+    "explícame un poquito el proceso en online",
+    "¿cómo se prepara un overlay?"
+   ]
+  },
+  {
+   "nombre": "explicar_tema",
+   "accion": "",
+   "clip": "",
+   "entidad": "tema_preparacion",
+   "prefijo": "tema_",
+   "frases": [
+    "¿qué es la caja oclusal?",
+    "¿cómo se hace la caja proximal?",
+    "¿por qué se elimina el punto de contacto?",
+    "explícame la reducción de cúspides",
+    "¿cómo debe quedar el acabado?",
+    "¿por qué las paredes divergentes?",
+    "¿qué son los ángulos internos?",
+    "¿para qué sirve la matriz?",
+    "¿cómo hago el piso gingival?",
+    "¿cómo deben quedar los márgenes?",
+    "¿qué son los socavados?",
+    "háblame de las cúspides",
+    "¿cómo configuro la caja oclusal?"
+   ]
+  },
+  {
+   "nombre": "fuera_de_alcance",
+   "accion": "",
+   "clip": "respuesta_fuera_de_alcance",
+   "entidad": "",
+   "prefijo": "",
+   "frases": [
+    "¿cuánto cuesta una incrustación?",
+    "¿qué material es mejor, cerámica o resina?",
+    "¿cómo se cementa la incrustación?",
+    "¿qué anestesia uso?",
+    "¿quién ganó el mundial?",
+    "¿qué hora es?",
+    "cuéntame un chiste",
+    "¿cómo está el clima?",
+    "¿cuánto tiempo dura una incrustación?",
+    "¿qué marca de fresas recomiendas?",
+    "¿cómo se hace una corona?",
+    "¿cuánto se cobra por una incrustación?",
+    "¿qué es una endodoncia?",
+    "¿cuánto duele?",
+    "¿cuál es tu comida favorita?",
+    "recomiéndame una película",
+    "¿cuál es la capital de Francia?",
+    "¿cuál es el país más grande del mundo?",
+    "¿cuál es tu deporte favorito?",
+    "¿cuál es la mejor marca de celular?",
+    "¿cuál es el animal más rápido?"
+   ]
+  }
+ ]
+}

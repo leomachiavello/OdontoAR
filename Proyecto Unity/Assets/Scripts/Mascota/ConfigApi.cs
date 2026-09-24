@@ -11,6 +11,7 @@ public class DatosApi
     public string groqApiKey;
     public string elevenLabsApiKey;
     public string elevenLabsVoiceId;
+    public bool groqRespaldo = true;
 }
 
 public static class ConfigApi
