@@ -1,16 +1,17 @@
+using System;
 using UnityEngine;
 
 /// <summary>
 /// Maneja secuencias lineales de pasos (Inlay, Onlay, Overlay, etc.)
 /// - Back en el primer paso: no hace nada.
 /// - Next en el último paso: vuelve al panel principal (maqueta).
-/// 
-/// Un solo componente maneja las 3 secuencias (o las que agregues),
-/// para no repetir lógica ni tener 3 scripts distintos.
+///
+/// Expone PasoCambiado y NombrePasoActual para que la mascota
+/// sepa qué panel está viendo el alumno.
 /// </summary>
 public class GestorSecuenciaPasos : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     public class Secuencia
     {
         public string nombre; // solo para identificar en el Inspector (Inlay, Onlay, Overlay)
@@ -23,13 +24,28 @@ public class GestorSecuenciaPasos : MonoBehaviour
     [Header("Secuencias disponibles")]
     [SerializeField] private Secuencia[] secuencias;
 
+    /// <summary>Se dispara cada vez que cambia el panel visible (paso nuevo o vuelta al principal).</summary>
+    public event Action<int> PasoCambiado;
+
+    public bool EnSecuencia => secuenciaActual != null;
+
+    /// <summary>Nombre del GameObject del panel que se está viendo ahora.</summary>
+    public string NombrePasoActual
+    {
+        get
+        {
+            if (secuenciaActual != null)
+                return secuenciaActual.pasos[indiceActual].name;
+            return panelPrincipal != null ? panelPrincipal.name : null;
+        }
+    }
+
     private Secuencia secuenciaActual;
     private int indiceActual;
 
     private void Start()
     {
-        // Apaga todos los pasos de todas las secuencias al arrancar,
-        // por si en el editor quedó alguno prendido de pruebas anteriores.
+        // Apaga todos los pasos al arrancar, por si quedó alguno prendido en el editor.
         foreach (var secuencia in secuencias)
         {
             foreach (var paso in secuencia.pasos)
@@ -83,14 +99,7 @@ public class GestorSecuenciaPasos : MonoBehaviour
     public void Atras()
     {
         if (secuenciaActual == null) return;
-
-        bool esPrimerPaso = indiceActual <= 0;
-
-        if (esPrimerPaso)
-        {
-            // No hay a dónde regresar, se queda en el mismo panel.
-            return;
-        }
+        if (indiceActual <= 0) return; // primer paso: no hay a dónde regresar
 
         secuenciaActual.pasos[indiceActual].SetActive(false);
         indiceActual--;
@@ -100,6 +109,7 @@ public class GestorSecuenciaPasos : MonoBehaviour
     private void MostrarPasoActual()
     {
         secuenciaActual.pasos[indiceActual].SetActive(true);
+        PasoCambiado?.Invoke(indiceActual);
     }
 
     private void VolverAlPrincipal()
@@ -108,12 +118,12 @@ public class GestorSecuenciaPasos : MonoBehaviour
         panelPrincipal.SetActive(true);
         secuenciaActual = null;
         indiceActual = 0;
+        PasoCambiado?.Invoke(indiceActual);
     }
 
     /// <summary>
-    /// Llamar desde el Menu_button (u otro botón "Home") para forzar
-    /// la vuelta al panel principal desde cualquier punto de cualquier secuencia.
-    /// A diferencia de Siguiente(), esto no exige estar en el último paso.
+    /// Llamar desde un botón "Home" para volver al panel principal
+    /// desde cualquier punto de cualquier secuencia.
     /// </summary>
     public void ForzarVueltaAlPrincipal()
     {
@@ -122,26 +132,25 @@ public class GestorSecuenciaPasos : MonoBehaviour
             secuenciaActual.pasos[indiceActual].SetActive(false);
             secuenciaActual = null;
             indiceActual = 0;
+            panelPrincipal.SetActive(true);
+            PasoCambiado?.Invoke(indiceActual);
         }
-
-        panelPrincipal.SetActive(true);
+        else
+        {
+            panelPrincipal.SetActive(true);
+        }
     }
 
     /// <summary>
-    /// Botón único e inteligente para Menu_button:
-    /// - Si estás en medio de una secuencia (Inlay/Onlay/Overlay), vuelve a la maqueta.
-    /// - Si ya estás en la maqueta (Panel_Principal), sale a la escena de Menú.
-    /// Reemplaza los dos botones separados por uno solo con esta lógica.
+    /// Botón único para Menu_button:
+    /// - En medio de una secuencia: vuelve a la maqueta.
+    /// - Ya en la maqueta: sale a la escena "Menu".
     /// </summary>
     public void BotonMenuInteligente()
     {
         if (secuenciaActual != null)
-        {
             ForzarVueltaAlPrincipal();
-        }
         else
-        {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-        }
     }
 }
