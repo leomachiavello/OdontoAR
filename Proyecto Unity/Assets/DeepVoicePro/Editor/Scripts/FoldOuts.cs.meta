@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d755928eb57e021469af7e7851f229d5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 314245
+  packageName: DeepVoice Pro - Text To Voice
+  packageVersion: 3.0.3
+  assetPath: Assets/DeepVoicePro/Editor/Scripts/FoldOuts.cs
+  uploadId: 757797

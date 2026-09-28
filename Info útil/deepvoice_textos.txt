@@ -3,12 +3,17 @@ TEXTOS PARA GENERAR LOS AUDIOS DE TANO CON DEEPVOICE PRO
 Total de audios: 53   |   Caracteres en total: 9545   |   El mas largo: 403 (limite de DeepVoice: 2500)
 
 COMO USARLO (Window > DeepVoice Pro):
-  1. Elige el modelo Multi y la misma voz para TODOS los audios (para que Tano suene siempre igual).
-  2. Cambia 'Voices Folder' a  Assets/Resources/Voces  (asi la app los encuentra sola).
-  3. Copia el texto de cada bloque en el campo Text.
-  4. En File Name escribe EXACTAMENTE el nombre del bloque (por ejemplo Inlay_paso1). Respeta mayusculas y guion bajo.
-  5. Pulsa Generate Voice. Si suena mal, cambia el texto o la voz y genera otra vez.
-  6. Cuando termines, en Unity usa el menu  OdontoAR > Verificar audios de Tano  para ver cuales faltan.
+  1. Elige el modelo (Multi o Instruct) y la misma voz para TODOS los audios (para que Tano suene siempre igual).
+     Con Instruct, deja las mismas Instructions en todos los audios.
+  2. Desmarca 'Auto' junto a 'Voices Folder' y escribe a mano  Assets/Resources/Voces  (no uses el boton . . /).
+  3. Copia el texto de cada bloque en el campo Text. Sin comillas ni saltos de linea, y no presiones Enter.
+  4. En File Name hay 3 casillas (Voz, Nombre, Toma). Escribe el nombre del bloque (por ejemplo Inlay_paso1)
+     SOLO en la casilla del medio, respetando mayusculas y guion bajo. Las otras dos dejalas como estan.
+     DeepVoice lo guarda como  <Voz>_Inlay_paso1_<Toma>.wav  y Unity lo renombra solo a  Inlay_paso1.wav
+     (lo confirma un mensaje "[Voces de Tano]" en la consola).
+  5. Pulsa Generate Voice. Si suena mal, genera otra vez: la version anterior se mueve a
+     Assets/DeepVoicePro/Voices/Anteriores (no entra en la app).
+  6. Cuando termines, en Unity usa el menu  OdontoAR > Verificar audios de Tano  para ver cuales faltan.
 
 Antes de generar: valida los textos con tu docente. Cada audio gasta caracteres de tu cuota mensual (boton Status).
 Los textos de las narraciones salen de  Assets/Resources/mascota_contenido.json  y los de las respuestas de  Info util/respuestas_tano.json.

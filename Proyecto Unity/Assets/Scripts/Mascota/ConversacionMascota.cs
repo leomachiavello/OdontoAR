@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit.Samples.ARStarterAssets;
 
 public class ConversacionMascota : MonoBehaviour
 {
@@ -12,21 +11,18 @@ public class ConversacionMascota : MonoBehaviour
     private NarradorMascota narrador;
     private NavegacionPasos navegacion;
     private AnimacionHablar animacion;
-    private ARInteractorSpawnTrigger spawnTrigger;
     private IntencionesLocal intenciones;
     private BoxCollider colisionMascota;
     private Coroutine procesoActual;
     private bool activo;
     private bool grabando;
     private bool presionadoAntes;
-    private bool esperandoSoltar;
 
-    public void Configurar(Transform mascotaTano, NarradorMascota narradorMascota, NavegacionPasos navegacionPasos, ARInteractorSpawnTrigger disparador)
+    public void Configurar(Transform mascotaTano, NarradorMascota narradorMascota, NavegacionPasos navegacionPasos)
     {
         mascota = mascotaTano;
         narrador = narradorMascota;
         navegacion = navegacionPasos;
-        spawnTrigger = disparador;
         intenciones = IntencionesLocal.Crear();
         animacion = mascota.GetComponent<AnimacionHablar>();
 
@@ -57,13 +53,6 @@ public class ConversacionMascota : MonoBehaviour
 
         bool presionado = LeerPuntero(out Vector2 posicion);
 
-        if (esperandoSoltar && !presionado)
-        {
-            esperandoSoltar = false;
-            if (spawnTrigger != null)
-                spawnTrigger.enabled = true;
-        }
-
         if (presionado && !presionadoAntes && !grabando && PuntoSobreMascota(posicion))
             IniciarEscucha();
         else if (!presionado && presionadoAntes && grabando)
@@ -80,12 +69,6 @@ public class ConversacionMascota : MonoBehaviour
         grabando = true;
         CancelarProceso();
         narrador.Detener();
-
-        if (spawnTrigger != null)
-        {
-            spawnTrigger.enabled = false;
-            esperandoSoltar = true;
-        }
 
         if (animacion != null)
             animacion.Escuchando(true);

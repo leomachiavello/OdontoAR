@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1ee30020ecc2081458d90d68aff7f88a
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 314245
+  packageName: DeepVoice Pro - Text To Voice
+  packageVersion: 3.0.3
+  assetPath: Assets/DeepVoicePro/Demo/DeepVoicePro Editor Launcher.unity
+  uploadId: 757797

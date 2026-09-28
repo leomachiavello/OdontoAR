@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.Interaction.Toolkit.Samples.ARStarterAssets;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class PanelFlotante : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class PanelFlotante : MonoBehaviour
     private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private RectTransform rectTransform;
     private bool colocado = false;
-    private bool esperandoSoltarToque = false;
     private NavegacionPasos navegacion;
     private NarradorMascota narrador;
     private ConversacionMascota conversacion;
@@ -44,8 +44,7 @@ public class PanelFlotante : MonoBehaviour
         if (spawnTrigger == null)
             spawnTrigger = FindObjectOfType<ARInteractorSpawnTrigger>();
 
-        if (spawnTrigger != null)
-            spawnTrigger.enabled = false;
+        DesactivarPlantillaAR();
 
         if (mascota == null)
         {
@@ -71,7 +70,7 @@ public class PanelFlotante : MonoBehaviour
             conversacion = GetComponent<ConversacionMascota>();
             if (conversacion == null)
                 conversacion = gameObject.AddComponent<ConversacionMascota>();
-            conversacion.Configurar(mascota, narrador, navegacion, spawnTrigger);
+            conversacion.Configurar(mascota, narrador, navegacion);
         }
     }
 
@@ -86,12 +85,6 @@ public class PanelFlotante : MonoBehaviour
         if (colocado)
         {
             SeguirPosicionMascota();
-
-            if (esperandoSoltarToque && spawnTrigger != null && !HayToqueActivo())
-            {
-                spawnTrigger.enabled = true;
-                esperandoSoltarToque = false;
-            }
             return;
         }
 
@@ -121,9 +114,60 @@ public class PanelFlotante : MonoBehaviour
             if (conversacion != null)
                 conversacion.Activar();
 
+            DetenerDeteccionPlanos();
             colocado = true;
-            esperandoSoltarToque = true;
         }
+    }
+
+    // La app no usa la creacion de objetos del template de AR (cubos, piramides, etc.) ni su menu de opciones.
+    void DesactivarPlantillaAR()
+    {
+        if (spawnTrigger != null)
+            spawnTrigger.enabled = false;
+
+        ObjectSpawner spawner = FindObjectOfType<ObjectSpawner>();
+        if (spawner != null)
+            spawner.gameObject.SetActive(false);
+
+        ARTemplateMenuManager menu = FindObjectOfType<ARTemplateMenuManager>();
+        if (menu == null)
+            return;
+
+        // El menu del template es quien asigna el visual de los planos; se conserva para poder ubicar el canvas.
+        if (planeManager != null && menu.debugPlane != null)
+            planeManager.planePrefab = menu.debugPlane;
+
+        // Solo se apaga lo del template: en el mismo objeto UI viven botones propios (OcultarMostrarButton, AtrasBoton).
+        menu.enabled = false;
+        OcultarUI(menu.createButton);
+        OcultarUI(menu.deleteButton);
+        OcultarUI(menu.transform.Find("Options Button"));
+        OcultarUI(menu.modalMenu);
+        OcultarUI(menu.objectMenuAnimator);
+        OcultarUI(menu.debugMenu);
+    }
+
+    static void OcultarUI(Component componente)
+    {
+        if (componente != null)
+            componente.gameObject.SetActive(false);
+    }
+
+    static void OcultarUI(GameObject objeto)
+    {
+        if (objeto != null)
+            objeto.SetActive(false);
+    }
+
+    void DetenerDeteccionPlanos()
+    {
+        if (planeManager == null)
+            return;
+
+        planeManager.requestedDetectionMode = PlaneDetectionMode.None;
+        foreach (ARPlane plano in planeManager.trackables)
+            plano.gameObject.SetActive(false);
+        planeManager.enabled = false;
     }
 
     void ColocarFlotandoSobrePiso(Pose pose)
@@ -193,17 +237,6 @@ public class PanelFlotante : MonoBehaviour
         direccion.y = 0f;
         if (direccion.sqrMagnitude > 0.0001f)
             transform.rotation = Quaternion.LookRotation(direccion);
-    }
-
-    bool HayToqueActivo()
-    {
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-            return true;
-
-        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
-            return true;
-
-        return false;
     }
 
     Vector2? LeerToque()
